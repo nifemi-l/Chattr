@@ -108,8 +108,8 @@ io.on("connection", (socket) => {
                     console.error(err);
                     return;
                 }
-                // broadcast new message to connected clients
-                io.emit("newMessage", { senderId, receiverId, content });
+                // broadcast new message to all other clients except the sender
+                socket.broadcast.emit("newMessage", { senderId, receiverId, content });
             }
         );
     });
