@@ -1,4 +1,4 @@
-ls// import dependencies
+// import dependencies
 const express = require("express"); // for rest api
 const http = require("http");
 const { Server } = require("socket.io");
