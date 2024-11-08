@@ -1,0 +1,7 @@
+Need to: 
+- Add enter button functionality (send message)
+- Create register and login pages
+- Change number-based messaging to username-based messaging
+- Add typing preview (dots)
+- Add background
+- Host
