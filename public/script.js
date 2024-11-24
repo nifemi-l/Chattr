@@ -128,6 +128,7 @@ socket.on("newMessage", (data) => {
 
 // typing animations
 // animations only show up for correct sender and receiver combination
+// -- animations only show up for full alignments
 socket.on("userTyping", (data) => { 
     if (data.receiverId === parseInt(selectedSenderId) && data.senderId === parseInt(selectedReceiverId)) { 
         showTypingAnimation();
