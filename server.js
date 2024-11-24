@@ -118,6 +118,19 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
         console.log("User disconnected");
     });
+
+    // handle typing indicator
+    socket.on("userTyping", (data) => { 
+        const { senderId, receiverId } = data;
+        // broadcast to other users
+        socket.broadcast.emit("userTyping", { senderId, receiverId });
+    });
+
+    socket.on("stopTyping", (data) => { 
+        const { senderId, receiverId } = data;
+        // notify users to stop showing animation
+        socket.broadcast.emit("stopTyping", { senderId, receiverId });
+    });
 });
 
 // start server
