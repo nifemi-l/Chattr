@@ -1,6 +1,4 @@
-Need to: 
-- Create register and login pages
-- Change number-based messaging to username-based messaging
-- Add typing preview (dots)
-- Add background
-- Host
+Next: 
+- make message box expand vertically
+- create register and login pages (auth)
+- username-based messaging?
