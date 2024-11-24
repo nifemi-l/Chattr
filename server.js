@@ -94,7 +94,7 @@ app.post("/login", (req, res) =>{
 
 // listen for connection
 io.on("connection", (socket) => {
-    console.log("User connected");
+    console.log("\nUser connected");
 
     // event for sending messages
     socket.on("sendMessage", (data) => {
@@ -116,11 +116,14 @@ io.on("connection", (socket) => {
 
     // handle disconnection
     socket.on("disconnect", () => {
-        console.log("User disconnected");
+        console.log("\nUser disconnected");
     });
 
     // handle typing indicator
     socket.on("userTyping", (data) => { 
+        // debug 
+        console.log("Typing event received", data);
+        
         const { senderId, receiverId } = data;
         // broadcast to other users
         socket.broadcast.emit("userTyping", { senderId, receiverId });
@@ -128,6 +131,7 @@ io.on("connection", (socket) => {
 
     socket.on("stopTyping", (data) => { 
         const { senderId, receiverId } = data;
+        console.log("Stop typing event received", data);
         // notify users to stop showing animation
         socket.broadcast.emit("stopTyping", { senderId, receiverId });
     });
