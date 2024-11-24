@@ -43,7 +43,7 @@ db.serialize(() => {
             id INTEGER PRIMARY KEY AUTOINCREMENT, -- unique id for every user
             username TEXT UNIQUE, -- unique user
             password TEXT -- hashed pw
-        )
+        )   
     `);
 
     // message tables for chats
@@ -61,7 +61,7 @@ db.serialize(() => {
 // api routes
 
 // new user registration
-app.post("register", async (req, res) => {
+app.post("/register", async (req, res) => {
     const { username, password } = req.body; // get user and pw
     const hashedPassword = await bcrypt(password, 10);
     // insert into db
