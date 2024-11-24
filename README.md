@@ -7,4 +7,5 @@ This is a system design diagram for the project:
 ![System Design Diagram](architecture/system_design.png)
 
 Here is a demonstration image:
+
 ![Chat Demo](snips/Chat_Demo.png)
