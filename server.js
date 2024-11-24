@@ -121,9 +121,7 @@ io.on("connection", (socket) => {
 
     // handle typing indicator
     socket.on("userTyping", (data) => { 
-        // debug 
-        console.log("Typing event received", data);
-        
+        // console.log("Typing event received", data);
         const { senderId, receiverId } = data;
         // broadcast to other users
         socket.broadcast.emit("userTyping", { senderId, receiverId });
@@ -131,7 +129,7 @@ io.on("connection", (socket) => {
 
     socket.on("stopTyping", (data) => { 
         const { senderId, receiverId } = data;
-        console.log("Stop typing event received", data);
+        // console.log("Stop typing event received", data);
         // notify users to stop showing animation
         socket.broadcast.emit("stopTyping", { senderId, receiverId });
     });
