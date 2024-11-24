@@ -106,6 +106,37 @@
         .chat-input button:hover {
             background-color: #45a049;
         }
+
+        /* typing animation container */
+        .ticontainer {
+            display: none; /* hide */
+            text-align: left;
+            margin: 10px;
+        }
+
+        /* dots animation */
+        .tiblock {
+            display: flex;
+            gap: 5px;
+        }
+
+        .tidot {
+            width: 10px;
+            height: 10px;
+            background-color: #aaa;
+            border-radius: 50%;
+            animation: typing 1.5s infinite ease-in-out;
+        }
+
+        @keyframes typing {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -126,11 +157,19 @@
         </div>
 
         <!-- message section -->
-        <div id="chatMessages" class="chat-messages"></div>
+        <div id="chatMessages" class="chat-messages">
+            <div class="ticontainer">
+                <div class="tiblock">
+                  <div class="tidot"></div>
+                  <div class="tidot"></div>
+                  <div class="tidot"></div>
+                </div>
+              </div>
+        </div>
 
         <!-- input Section -->
         <div class="chat-input">
-            <input id="messageInput" type="text" placeholder="Type a message..." />
+            <input id="messageInput" type="text" placeholder="Type a message..." autocomplete="off"/>
             <button id="sendButton">Send</button>
         </div>
     </div>
