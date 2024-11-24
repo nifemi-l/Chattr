@@ -5,8 +5,32 @@ const socket = io("http://localhost:3000");
 let selectedReceiverId = null;
 
 const messagesContainer = document.getElementById("chatMessages");
+const messageInput = document.getElementById("messageInput");
 
 let typingTimeout;
+
+// emit typing event once user starts typing 
+messageInput.addEventListener("input", () => { 
+    // make sure receiver is selected
+    if (!selectedReceiverId) return;
+
+    // emit typing event to server
+    socket.emit("userTyping", {
+        senderId: 1, 
+        receiverId: parseInt(selectedReceiverId),
+    })
+
+    // reset timeout
+    clearTimeout(typingTimeout);
+
+    // emit typing stoppage event after 2s of kb inactivity
+    typingTimeout = setTimeout(() => { 
+        socket.emit("stopTyping", {
+            senderId: 1,
+            receiverId: parseInt(selectedReceiverId),
+        });
+    }, 2000); 
+})
 
 // add a message to chat UI
 function addMessage(content, type) {
@@ -26,7 +50,6 @@ function addMessage(content, type) {
 
 // send message to user
 function sendMessage() {
-    const messageInput = document.getElementById("messageInput");
     const message = messageInput.value;
 
     if (!selectedReceiverId) {
@@ -47,6 +70,8 @@ function sendMessage() {
     // clear input field
     messageInput.value = "";
 }
+
+// DOM event listeners 
 
 // listen for request to send message
 document.getElementById("sendButton").addEventListener("click", () => {
@@ -69,6 +94,9 @@ document.getElementById("receiverSelect").addEventListener("change", (event) => 
     chatWith.textContent = `User ${selectedReceiverId}`;
 });
 
+
+// Socket event listeners 
+
 // listen for new messages from the server
 socket.on("newMessage", (data) => {
     if (parseInt(data.receiverId) === 1 || parseInt(data.senderId) === 1) {
@@ -76,3 +104,17 @@ socket.on("newMessage", (data) => {
         addMessage(data.content, "received");
     }
 });
+
+// typing animations
+socket.on("userTyping", (data) => { 
+    // avoid showing it for current user (will need to change)
+    if (data.senderId !== 1) { 
+        showTypingAnimation();
+    }
+});
+
+socket.on('stopTyping', (data) => { 
+    if (data.senderId !== 1) { 
+        hideTypingAnimation();
+    }
+})
