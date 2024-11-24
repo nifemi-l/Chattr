@@ -1,25 +1,18 @@
 // connect to server
 const socket = io("http://localhost:3000");
+
 // track receiver
 let selectedReceiverId = null;
 
-// Need to: Add enter button functionality. Should send message
+const messagesContainer = document.getElementById("chatMessages");
 
-
-// handle receiver selection
-document.getElementById("receiverSelect").addEventListener("change", (event) => {
-    selectedReceiverId = event.target.value;
-    const chatWith = document.getElementById("chatWith");
-    // update header
-    chatWith.textContent = `User ${selectedReceiverId}`;
-});
+let typingTimeout;
 
 // add a message to chat UI
 function addMessage(content, type) {
-    const messagesContainer = document.getElementById("chatMessages");
-
     // make new message element
     const messageElement = document.createElement("div");
+
     // add class
     messageElement.classList.add("message", type);
     messageElement.textContent = content;
@@ -31,8 +24,8 @@ function addMessage(content, type) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// send a message
-document.getElementById("sendButton").addEventListener("click", () => {
+// send message to user
+function sendMessage() {
     const messageInput = document.getElementById("messageInput");
     const message = messageInput.value;
 
@@ -53,6 +46,27 @@ document.getElementById("sendButton").addEventListener("click", () => {
 
     // clear input field
     messageInput.value = "";
+}
+
+// listen for request to send message
+document.getElementById("sendButton").addEventListener("click", () => {
+    sendMessage();
+});
+
+// enter functionality
+document.addEventListener('keydown', (event) => { 
+    if (event.key === "Enter") { 
+        // send the message
+        sendMessage()
+    }
+});
+
+// handle receiver selection
+document.getElementById("receiverSelect").addEventListener("change", (event) => {
+    selectedReceiverId = event.target.value;
+    const chatWith = document.getElementById("chatWith");
+    // update header
+    chatWith.textContent = `User ${selectedReceiverId}`;
 });
 
 // listen for new messages from the server
