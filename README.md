@@ -1,12 +1,9 @@
 # Overview
-This project is a work in progress. I'm designing this to expand my understanding of real-time messaging and user authentication. Updates and improvements will continue as I expand its features and refine functionality.
 
-The end goal of this project is to create a real-time messaging platform with secure user authentication. I'll be leveraging WebSocket for persistent connections and a REST API for stateless communication. 
-
+This project implements a basic API and real-time messaging using WebSocket. The design diagram below outlines a potential future state with features like JWT authentication and a fully integrated REST API, which are not part of this implementation.
 
 # Design Diagram
 ![System Design Diagram](architecture/system_design.png)
-
 
 # Image
 ![Chat Demo](snips/Chat_Demo.png)
